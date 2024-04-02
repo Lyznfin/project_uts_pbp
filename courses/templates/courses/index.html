@@ -66,9 +66,19 @@
             </div>
         </div>
         <div class="col-9 d-flex flex-column p-2 mt-2">
-            {% for course in courses %}
-                {% include "courses/bits/course-preview.html" %}
-            {% endfor %}
+            {% if courses %}
+                {% for course in courses %}
+                    {% include "courses/bits/course-preview.html" %}
+                {% endfor %}
+            {% else %}
+                <div class="container p-3">
+                    <div class="error-container">
+                        <h1>404</h1>
+                        <p>Oops! Page not found.</p>
+                        <a href="#" class="btn btn-primary">Go Back Home</a>
+                      </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
