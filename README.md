@@ -1,20 +1,16 @@
 # Project UTS
-
-Project mata kuliah Pemrograman Berbasis Platform kelompok 5
-Website course menggunakan python, django, html5, css, js, dan bootstrap
+Project mata kuliah Pemrograman Berbasis Platform kelompok 5. Website course menggunakan python, django, html5, dan bootstrap
 
 # Running
-Untuk menjalankan website, pertama tama copy directory ini ke computer anda
-dengan execute perintah berikut melalui terminal windows
+Untuk menjalankan website, pertama tama copy directory ini ke computer anda dengan mengeksekusi perintah berikut melalui terminal windows
 ```
 git clone https://github.com/Lyznfin/project_uts_pbp
 ```
-Selanjutnya masuk ke directory dimana project telah terdownload
-Install requirement
+Selanjutnya masuk ke directory dimana project telah terdownload lalu install requirement
 ```
 pip install -r requirements. txt
 ```
-Terakhir, masuk ke directory utama dan execute melalui terminal
+Terakhir, masuk ke directory utama dan eksekusi melalui terminal
 ```
 py manage.py runserver
 ```
