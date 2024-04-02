@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Not Found {% endblock title %}
+
+{% block style %}
+{% endblock style %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="error-template text-center">
+                <h2>
+                    404 Not Found
+                </h2>
+                <img src="{% static "courses/img/venti.png" %}" class="h-200" alt="">
+                <div class="error-actions mt-3">
+                    <a href="/" class="btn btn-primary bg-dark border-light">
+                        Kembali
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import Index, UserCourses, AddCourse, RemoveCourse, CourseSectionView, CourseView, AddSection, RemoveSection
 
 urlpatterns = [
@@ -10,4 +12,4 @@ urlpatterns = [
     path('<slug:slug>/section/<int:pk>', CourseSectionView.as_view(), name='course-section'),
     path('<slug:slug>/section/<int:pk>/add', AddSection.as_view(), name='add-section'),
     path('<slug:slug>/section/<int:pk>/remove', RemoveSection.as_view(), name='delete-section')
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

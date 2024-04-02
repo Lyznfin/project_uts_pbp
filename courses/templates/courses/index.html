@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %} All Courses {% endblock title %}
 
@@ -71,13 +72,26 @@
                     {% include "courses/bits/course-preview.html" %}
                 {% endfor %}
             {% else %}
-                <div class="container p-3">
-                    <div class="error-container">
-                        <h1>404</h1>
-                        <p>Oops! Page not found.</p>
-                        <a href="#" class="btn btn-primary">Go Back Home</a>
-                      </div>
+            <div class="container mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="error-template text-center">
+                            <h2>
+                                404 Not Found
+                            </h2>
+                            <img src="{% static "courses/img/venti.png" %}" class="h-200" alt="">
+                            <div class="error-details mb-3 mt-1">
+                                Course dengan kriteria tersebut tidak dapat ditemukan
+                            </div>
+                            <div class="error-actions">
+                                <a href="/" class="btn btn-primary bg-dark border-light">
+                                    Kembali
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
             {% endif %}
         </div>
     </div>
