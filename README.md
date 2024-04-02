@@ -7,7 +7,7 @@ Website course menggunakan python, django, html5, css, js, dan bootstrap
 Untuk menjalankan website, pertama tama copy directory ini ke computer anda
 dengan execute perintah berikut melalui terminal windows
 ```
-git clone
+git clone https://github.com/Lyznfin/project_uts_pbp
 ```
 Selanjutnya masuk ke directory dimana project telah terdownload
 Install requirement
