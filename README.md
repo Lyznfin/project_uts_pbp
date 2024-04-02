@@ -11,7 +11,7 @@ Selanjutnya masuk ke directory dimana project telah terdownload lalu install req
 cd project_uts_pbp
 pip install -r requirements. txt
 ```
-Terakhir, masuk ke directory utama dan eksekusi melalui terminal
+Terakhir eksekusi perintah berikut
 ```
 py manage.py runserver
 ```
