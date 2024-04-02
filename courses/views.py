@@ -175,8 +175,6 @@ class UserCourses(ListView):
         usercourse = super().get_queryset()
         return usercourse.filter(user=self.request.user)    
 
-    #TODO: Correct this messy, inefficient query
-        #or not? idk, not that important for a simple CRUD tbh
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
