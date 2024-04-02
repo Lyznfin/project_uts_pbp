@@ -9,7 +9,7 @@ git clone https://github.com/Lyznfin/project_uts_pbp
 Selanjutnya masuk ke directory dimana project telah terdownload lalu install requirement
 ```
 cd project_uts_pbp
-pip install -r requirements. txt
+pip install -r requirement.txt
 ```
 Terakhir eksekusi perintah berikut
 ```
