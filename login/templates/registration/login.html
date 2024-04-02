@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Login {% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4">
+                {% if request.GET.need_account %}
+                <div class="alert alert-warning mt-3 p-3" role="alert">
+                    You need to login into an account first
+                </div>
+                {% endif %}
+                <form action="" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <p class="mb-3">Don't have an account? <a href="/sign-up">Sign Up</a></p>
+                <button type="submit" class="btn btn-success">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %} {{ course.title }} {% endblock title %}
+
+{% block content %}
+<div class="container mt-2">
+    <div class="card bg-dark p-2 position-relative">
+        <div class="card-body">
+            <h2>{{ course.title }}</h2>
+            <h5 class="card-text">By <a href="{{ course.instructor.youtube }}" target="_blank" class="text-decoration-none">{{ course.instructor }}</a></h5>
+            <ul class="list-group list-group-horizontal mt-3">
+                {% for category in course.categories.all %}
+                    <li class="list-group-item">{{ category.get_category_name }}</li>
+                {% endfor %}
+            </ul>
+            {% if not user_added_course %}
+            <form action="{% url "add-course" course.slug %}" method="POST" class="position-absolute top-0 end-0 m-4">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary bg-dark">
+                    <i class="bi bi-bookmarks"></i> Add Course
+                </button>
+            </form>
+            {% else %}
+            <form action="{% url "delete-course" course.slug %}" method="POST" class="position-absolute top-0 end-0 m-4">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-bookmarks-fill"></i> Remove Course
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% if user_added_course %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group w-100 mt-4 overflow-auto border" style="max-height: 65vh;">
+                {% if course.coursesection_set %}
+                    {% for section in sections %}
+                    <div class="d-flex align-items-center border m-0 p-0" style="border: none; background: none; padding: 0; cursor: pointer;">
+                        <a href="{% url 'course-section' slug=course.slug pk=section.pk %}" class="list-group-item list-group-item-action p-2" style="border: none; display: flex; align-items: center;">
+                            {% if section.pk in completed_sections %}
+                                <form action="{% url 'delete-section' slug=course.slug pk=section.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link me-2 p-0"><i class="bi bi-check-square-fill"></i></button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'add-section' slug=course.slug pk=section.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link me-2 p-0"><i class="bi bi-check-square"></i></button>
+                                </form>
+                            {% endif %}
+                            <span>{{ section.section }}</span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No sections available</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-9 mt-4">
+            {% if section %}
+                {% if section.pointer %}
+                    <div class="ratio ratio-16x9">
+                        <iframe 
+                            src="{{ section.pointer }}?modestbranding=1&showinfo=0&rel=1&autoplay=1" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                {% else %}
+                    <div class="alert">
+                        <p class="text-center mx-auto">Video is currently not available</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="alert">
+                    <p class="text-center mx-auto">Select the section you want to view</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% elif user_isnt_login %}
+        <div class="alert alert-warning mt-4" role="alert">
+            You need to login first before viewing sections.
+        </div>
+    {% else %}
+        <div class="alert alert-warning mt-4" role="alert">
+            You need to add this course to your course collection before viewing sections.
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

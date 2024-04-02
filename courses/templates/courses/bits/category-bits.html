@@ -1,0 +1,6 @@
+<div class="form-check cursor-pointer">
+    <input class="form-check-input" type="checkbox" id="{{category.pk}}" name="category" value="{{category.pk}}" {% if category.pk|stringformat:"s" in selected_categories %} checked {% endif %}>
+    <label class="form-check-label" for="{{category.pk}}">
+        {{category}}
+    </label>
+</div>
