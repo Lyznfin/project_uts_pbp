@@ -1,5 +1,5 @@
 # Project UTS
-Project mata kuliah Pemrograman Berbasis Platform kelompok 5. Website course menggunakan python, django, html5, dan bootstrap. Website berjalan secara lokal untuk menghindari copyright issue.
+Project mata kuliah Pemrograman Berbasis Platform kelompok 5. Website course menggunakan python, django, html5, dan bootstrap. Website berjalan secara lokal untuk menghindari copyright issue YouTube.
 
 # Running
 Untuk menjalankan website secara lokal, pertama tama copy directory ini ke computer anda dengan mengeksekusi perintah berikut melalui terminal windows.
