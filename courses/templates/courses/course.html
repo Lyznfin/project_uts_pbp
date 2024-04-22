@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-2">
-    <div class="card bg-dark p-2 position-relative">
+    <div class="card bg-dark position-relative">
         <div class="card-body">
             <h2>{{ course.title }}</h2>
             <h5 class="card-text">By <a href="{{ course.instructor.youtube }}" target="_blank" class="text-decoration-none">{{ course.instructor }}</a></h5>
@@ -33,7 +33,7 @@
     {% if user_added_course %}
     <div class="row">
         <div class="col-md-3">
-            <div class="list-group w-100 mt-4 overflow-auto border" style="max-height: 65vh;">
+            <div class="list-group w-100 mt-2 overflow-auto border" style="max-height: 65vh;">
                 {% if course.coursesection_set %}
                     {% for section in sections %}
                     <div class="d-flex align-items-center border m-0 p-0" style="border: none; background: none; padding: 0; cursor: pointer;">
@@ -58,7 +58,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-md-9 mt-4">
+        <div class="col-md-9 mt-2">
             {% if section %}
                 {% if section.pointer %}
                     <div class="ratio ratio-16x9">
