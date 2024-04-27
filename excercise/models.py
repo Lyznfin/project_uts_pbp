@@ -2,9 +2,10 @@ from django.db import models
 from django.utils.text import slugify
 from courses.models import Course
 from django.contrib.auth.models import User
+import random
 
 class CourseExcercise(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="excercises")
     name = models.CharField(max_length=255)
     time = models.IntegerField()
     slug = models.SlugField(default='', blank=True, unique = True, db_index = True)
@@ -18,7 +19,12 @@ class CourseExcercise(models.Model):
         return self.name
     
     def get_question(self):
-        return self.questions.all()
+        questions = list(self.questions.all())
+        random.shuffle(questions)
+        return questions
+
+    def question_count(self):
+        return self.questions.count()
 
 class ExcerciseQuestion(models.Model):
     excercise = models.ForeignKey(CourseExcercise, on_delete=models.CASCADE, related_name="questions")
@@ -36,7 +42,7 @@ class ExcerciseAnswer(models.Model):
     correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.answer + ' ' + self.correct
+        return self.answer + ' ' + str(self.correct)
     
 class ExcerciseResult(models.Model):
     excercise = models.ForeignKey(CourseExcercise, on_delete=models.CASCADE)

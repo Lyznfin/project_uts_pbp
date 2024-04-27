@@ -11,7 +11,7 @@ class Index(ListView):
     template_name = 'courses/index.html'
     model = Course
     context_object_name = 'courses'
-    paginate_by = 7
+    paginate_by = 8
 
     def get_queryset(self):
         queryset = super().get_queryset()
