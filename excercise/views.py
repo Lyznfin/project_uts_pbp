@@ -66,6 +66,11 @@ def save_excercise_view(request, slug, *args, **kwargs):
                 }})
             
         final_score = score * multiplier
-        ExcerciseResult.objects.create(excercise=excercise, user=user, score=final_score)
-        return JsonResponse({'score': final_score, 'result': results})
+        result, created = ExcerciseResult.objects.get_or_create(excercise=excercise, user=user)
+        result.score = final_score
+        if not created:
+            result.save()
+
+        return JsonResponse({'score': final_score, 'results': results})
+    
     return JsonResponse({'text': 'works'})
