@@ -1,0 +1,4 @@
+.venv/
+course/__pycache__/
+courses/__pycache__/
+excercise/__pycache__/

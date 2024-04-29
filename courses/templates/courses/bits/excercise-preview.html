@@ -1,0 +1,12 @@
+<button type="button" 
+class="btn btn-primary bg-dark border-dark m-0 p-0 modal-button" 
+data-bs-toggle="modal" 
+data-bs-target="#excerciseStartModal"
+data-course-title="{{excercise.course.title}}"
+data-pk="{{excercise.pk}}"
+data-url="{% url "excercise-detail" excercise.slug %}"
+data-name="{{excercise.name}}"
+data-time="{{excercise.time}}"
+data-num-question="{{excercise.question_count}}">
+    <p class="text-light">{{ excercise.name }}</p>
+</button>
