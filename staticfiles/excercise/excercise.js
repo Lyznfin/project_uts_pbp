@@ -4,8 +4,6 @@ const scoreBox = document.getElementById('score-box')
 const resultBox = document.getElementById('result-box')
 const timerBox = document.getElementById('timer-box')
 
-const backButton = document.getElementById('back-button')
-
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 const url = window.location.href
 
@@ -22,7 +20,7 @@ const activateTimer = (time) => {
     let displaySeconds
     let displayMinutes
 
-    timerInterval = setInterval(() => {
+    const timer = setInterval(() => {
         seconds--
         if (seconds < 0) {
             seconds = 59
@@ -44,13 +42,18 @@ const activateTimer = (time) => {
         if (minutes === 0 && seconds === 0){
             timerBox.innerHTML = `<b>00:00</b>`
             setTimeout(() => {
-                clearInterval(timerInterval)
+                clearInterval(timer)
                 alert('Sorry bud, its over')
                 sendData()
             }, 500);
         }
 
         timerBox.innerHTML = `<b>${displayMinutes}:${displaySeconds}</b>`
+    }, 1000);
+
+    timerInterval = setInterval(() => {
+        clearInterval(timer)
+        timerBox.innerHTML = `<b>00:00</b>`
     }, 1000);
 }
 
@@ -86,7 +89,6 @@ const sendData = () => {
         success: function (response) {
             const results = response.results
             excerciseForm.classList.add('visually-hidden')
-            backButton.classList.remove('visually-hidden')
             scoreBox.innerHTML = `<hr><h5 class="text"> score: ${response.score} / 100 </h5>`
 
             results.forEach(result => {
@@ -129,6 +131,5 @@ const sendData = () => {
 excerciseForm.addEventListener('submit', event => {
     event.preventDefault()
     clearInterval(timerInterval)
-    timerBox.innerHTML = `<b>00:00</b>`
     sendData()
 })

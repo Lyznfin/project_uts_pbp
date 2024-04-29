@@ -11,7 +11,7 @@
                 <h5 class="text mt-3">{{ excercise_name }}</h5>
                 <div class="align-self-center" id="timer-box"></div>
             </div>
-            <a href="{%url 'user-courses' %}" class="btn btn-danger p-2 align-self-center">Go Back?</a>
+            <a href="{%url 'user-courses' %}" class="btn btn-danger p-2 align-self-center visually-hidden" id="back-button">Go Back?</a>
             <div id="score-box"></div>
             <form id="excercise-form" class="mt-3 mb-3">
                 {% csrf_token %}
