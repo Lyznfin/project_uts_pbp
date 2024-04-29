@@ -12,7 +12,14 @@
                                 <p class="card-text mb-3">Excercises: </p>
                                 <ul class="list-group">
                                 {% for excercise in usercourse.course.excercises.all %}
+                                <li class="list-group-item pb-0 pt-0 mb-1 d-flex justify-content-start align-items-center" style="border: none;">
                                     {% include "courses/bits/excercise-preview.html" %}
+                                    {% for user_excercise in result_excercise.all %}
+                                        {% if excercise == user_excercise.excercise %}
+                                        <p class="ml-4"> | Previous score: {{ user_excercise.score }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </li>
                                 {% endfor %}
                                 </ul>
                             {% endif %}

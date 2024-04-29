@@ -2,9 +2,71 @@ const excerciseForm = document.getElementById('excercise-form')
 const excerciseBox = document.getElementById('excercise-box')
 const scoreBox = document.getElementById('score-box')
 const resultBox = document.getElementById('result-box')
+const timerBox = document.getElementById('timer-box')
 
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 const url = window.location.href
+
+let timerInterval
+const activateTimer = (time) => {
+    if (time.toString().length < 2) {
+        timerBox.innerHTML = `<b>0${time}:00</b>`
+    } else {
+        timerBox.innerHTML = `<b>${time}:00</b>`
+    }
+
+    let minutes = time - 1
+    let seconds = 60
+    let displaySeconds
+    let displayMinutes
+
+    const timer = setInterval(() => {
+        seconds--
+        if (seconds < 0) {
+            seconds = 59
+            minutes--
+        }
+
+        if (minutes.toString().length < 2) {
+            displayMinutes = '0'+minutes
+        } else {
+            displayMinutes = minutes
+        }
+
+        if (seconds.toString().length < 2) {
+            displaySeconds = '0'+seconds
+        } else {
+            displaySeconds = seconds
+        }
+
+        if (minutes === 0 && seconds === 0){
+            timerBox.innerHTML = `<b>00:00</b>`
+            setTimeout(() => {
+                clearInterval(timer)
+                alert('Sorry bud, its over')
+                sendData()
+            }, 500);
+        }
+
+        timerBox.innerHTML = `<b>${displayMinutes}:${displaySeconds}</b>`
+    }, 1000);
+
+    timerInterval = setInterval(() => {
+        clearInterval(timer)
+        timerBox.innerHTML = `<b>00:00</b>`
+    }, 1000);
+}
+
+$.ajax({
+    type: 'GET',
+    url: `${url}time`,
+    success: function (response) {
+        activateTimer(response.time)
+    },
+    error: function(error) {
+        console.log(error)
+    }
+})
 
 const sendData = () => {
     const elements = [...document.getElementsByClassName('ans')]
@@ -24,7 +86,7 @@ const sendData = () => {
         type: 'POST',
         url: `${url}save/`,
         data: data,
-        success: function(response) {
+        success: function (response) {
             const results = response.results
             excerciseForm.classList.add('visually-hidden')
             scoreBox.innerHTML = `<hr><h5 class="text"> score: ${response.score} / 100 </h5>`
@@ -60,7 +122,7 @@ const sendData = () => {
                 resultBox.append(resultDiv)
             })
         },
-        error: function(error) {
+        error: function (error) {
             console.log(error)
         }
     })
@@ -68,5 +130,6 @@ const sendData = () => {
 
 excerciseForm.addEventListener('submit', event => {
     event.preventDefault()
+    clearInterval(timerInterval);
     sendData()
 })

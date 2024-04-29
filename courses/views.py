@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Course, CourseSection, UserCourse, CourseCategory, CompletedUserSection
+from excercise.models import CourseExcercise, ExcerciseResult
 from django.db.models import Q
 from django.utils import timezone
 
@@ -187,4 +188,6 @@ class UserCourses(ListView):
             for section in usercourse.total_sections:
                 if section in completed_sections:
                     usercourse.completed_sections += 1
+        result = ExcerciseResult.objects.filter(user=user)
+        context['result_excercise'] = result
         return context

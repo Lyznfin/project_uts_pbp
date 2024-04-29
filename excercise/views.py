@@ -1,15 +1,19 @@
 from typing import Any
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .models import CourseExcercise, ExcerciseQuestion, ExcerciseAnswer, ExcerciseResult
 from django.views.generic import ListView
 from django.views import View
 
+@method_decorator(login_required(login_url='/login' + '?need_account=true'), name='dispatch')
 class ExcerciseListView(ListView):
     model = CourseExcercise
     template_name = 'excercise/excercise.html'
     context_object_name = 'excercises'
 
+@method_decorator(login_required(login_url='/login' + '?need_account=true'), name='dispatch')
 class ExcerciseQuestionsView(View):
     template_name = 'excercise/excercise.html'
 
@@ -23,6 +27,10 @@ class ExcerciseQuestionsView(View):
             'excercise_name': excercise.name
         }
         return render(request, self.template_name, context)
+
+def get_time(request, slug, *args, **kwargs):
+    excercise = CourseExcercise.objects.get(slug=slug)
+    return JsonResponse({'time': excercise.time}) 
 
 def save_excercise_view(request, slug, *args, **kwargs):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -73,4 +81,4 @@ def save_excercise_view(request, slug, *args, **kwargs):
 
         return JsonResponse({'score': final_score, 'results': results})
     
-    return JsonResponse({'text': 'works'})
+    return JsonResponse({'error': 401})

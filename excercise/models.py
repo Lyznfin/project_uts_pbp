@@ -8,7 +8,7 @@ class CourseExcercise(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="excercises")
     name = models.CharField(max_length=255)
     time = models.IntegerField()
-    slug = models.SlugField(default='', blank=True, unique = True, db_index = True)
+    slug = models.SlugField(max_length=125, default='', blank=True, unique = True, db_index = True)
 
     def save(self, *args, **kwargs) -> None:
         slug = self.course.title + ' ' + self.name
@@ -34,7 +34,9 @@ class ExcerciseQuestion(models.Model):
         return self.question
         
     def get_answers(self):
-        return self.answers.all()
+        answer = list(self.answers.all())
+        random.shuffle(answer)
+        return answer
     
 class ExcerciseAnswer(models.Model):
     question = models.ForeignKey(ExcerciseQuestion, on_delete=models.CASCADE, related_name="answers")
@@ -45,8 +47,8 @@ class ExcerciseAnswer(models.Model):
         return self.answer + ' ' + str(self.correct)
     
 class ExcerciseResult(models.Model):
-    excercise = models.ForeignKey(CourseExcercise, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    excercise = models.ForeignKey(CourseExcercise, on_delete=models.CASCADE, related_name="excercise_result")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_excercise")
     score = models.FloatField(default=0.0)
 
     def __str__(self):
