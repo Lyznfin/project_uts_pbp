@@ -1,4 +1,4 @@
-# Project UTS
+# Project PBP
 Project mata kuliah Pemrograman Berbasis Platform kelompok 5. Website course menggunakan python, django, html5, dan bootstrap. Website berjalan secara lokal untuk menghindari copyright issue YouTube.
 
 # Running
